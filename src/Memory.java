@@ -37,6 +37,13 @@ public class Memory {
         return size;
     }
 
+    public int fetch(Register8 PC){
+        /**
+         * Returns the value indicated by the address of the PC register.
+         */
+        return  memory[PC.getValue()];
+    }
+
     private void _initializeMemory(){
         for (int i = 0; i < size; i++)
             memory[i] = 0;
