@@ -24,4 +24,20 @@ public class Register8 {
     public void clear(){
         setValue(0);
     }
+
+    public void increment(int value){
+        storedValue += value;
+        if(storedValue >= 256)  // reset counter
+            storedValue %= storedValue;
+
+    }
+
+    public void increment(){
+        increment(1);
+    }
+
+    @Override
+    public String toString() {
+        return "storedValue=" + Integer.toHexString(storedValue).toUpperCase();
+    }
 }

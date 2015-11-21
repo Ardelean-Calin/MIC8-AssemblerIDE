@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Project: MIC8-AssemblerIDE
  * Created by calin on 11/21/15.
@@ -37,11 +39,18 @@ public class Memory {
         return size;
     }
 
-    public int fetch(Register8 PC){
+    public void fetch(Register8 MBR, Register8 PC){
         /**
-         * Returns the value indicated by the address of the PC register.
+         * Fetches into the MBR the OP-code at address PC
          */
-        return  memory[PC.getValue()];
+        MBR.setValue(memory[PC.getValue()]);
+    }
+
+    @Override
+    public String toString() {
+        return "Memory{" +
+                "memory=" + Arrays.toString(memory) +
+                '}';
     }
 
     private void _initializeMemory(){

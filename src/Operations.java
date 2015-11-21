@@ -3,7 +3,7 @@
  * Created by calin on 11/21/15.
  */
 public class Operations {
-    public static void move(Register8 A, Register8 B){
+    public static void move(Register8 B, Register8 A){
         /**
          * Copies the value from register A into register B.
          */
