@@ -23,3 +23,6 @@ These are the OP-codes implemented by the microprocessor:
 |`HALT`           | 1f              |Halt processor
 
 Using these op-codes one can implement a variety of programs. If you want to simulate this CPU in [Logisim Evolution](https://github.com/reds-heig/logisim-evolution), download the whole Logisim folder and open **CPU.circ**. There are some test programs in there but you can write your own using the commands above. Just write the corresponding op-codes into the external memory present in *Test-CPU* and press Ctrl+K in order to run the clock.
+
+Here's how the CPU looks like. I'll try to make a cleaner, arhitecture level diagram sometime in the near future.
+![Img](http://i.imgur.com/873eead.png)
