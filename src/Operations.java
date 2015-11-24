@@ -59,5 +59,62 @@ public class Operations {
          */
         A.setValue(input.getValue());
     }
-    // Implement IF and NOP and MAIN... Maybe this static class is no good
+
+    public static void jumpIfEqual(Memory programMemory, Register8 PC, Register8 A, Register8 B){
+        /**
+         * Extracts the address as being the next op-code/byte and jumps
+         * to the address in Program Memory indicated by that byte only
+         * if A == B;
+         */
+        int difference = A.getValue() - B.getValue();
+        int nextAddress = programMemory.getByte(PC.getValue());
+
+        if (difference == 0)
+            jump(PC, nextAddress);
+        else
+            PC.increment();  // execute next instruction, after address
+    }
+
+    public static void jumpIfLess(Memory programMemory, Register8 PC, Register8 A, Register8 B){
+        /**
+         * Extracts the address as being the next op-code/byte and jumps
+         * to the address in Program Memory indicated by that byte only
+         * if A <= B;
+         */
+        int difference = A.getValue() - B.getValue();
+        int nextAddress = programMemory.getByte(PC.getValue());
+
+        if (difference <= 0)  // A <= B
+            jump(PC, nextAddress);
+        else
+            PC.increment();  // execute next instruction, after address
+    }
+
+    public static void jumpIfZero(Memory programMemory, Register8 PC, Register8 A){
+        /**
+         * Extracts the address as being the next op-code/byte and jumps
+         * to the address in Program Memory indicated by that byte only
+         * if A == 0;
+         */
+        int nextAddress = programMemory.getByte(PC.getValue());
+
+        if (A.getValue() == 0)
+            jump(PC, nextAddress);
+        else
+            PC.increment();
+    }
+
+    public static void push(Register8 A, Stack stack) throws StackOverFlowException {
+        /**
+         * Stores A into the stack.
+         */
+        stack.push(A);
+    }
+
+    public static void pop(Register8 A, Stack stack) throws StackUnderFlowException {
+        /**
+         * Retrieves A from stack.
+         */
+        stack.pop(A);
+    }
 }

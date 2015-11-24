@@ -9,6 +9,7 @@ public class CPU {
     Register8 MBR;
     Register8 OUT;
     Register8 IN;
+    Stack STACK;
     Memory programMemory;
 
     int clock;  // Current clock cycle
@@ -21,6 +22,7 @@ public class CPU {
         MBR = new Register8();
         OUT = new Register8();
         IN = new Register8();
+        STACK = new Stack();
 
         // Create an 256 bytes memory
         programMemory = new Memory();
@@ -112,43 +114,45 @@ public class CPU {
                 clock += 2;
                 break;
 
-            case 0x17: {  // IFEQ
-                int difference = A.getValue() - B.getValue();
-                int nextAddress = programMemory.getByte(PC.getValue());
-
-                if (difference == 0)
-                    Operations.jump(PC, nextAddress);
-                else
-                    PC.increment();  // execute next instruction, after address
+            case 0x17:  // IFEQ
+                Operations.jumpIfEqual(programMemory, PC, A, B);
 
                 clock += 4;
                 break;
-            }
 
             case 0x1B: {  // IFL
-                int difference = A.getValue() - B.getValue();
-                int nextAddress = programMemory.getByte(PC.getValue());
-
-                if (difference < 0)  // A < B
-                    Operations.jump(PC, nextAddress);
-                else
-                    PC.increment();  // execute next instruction, after address
+                Operations.jumpIfLess(programMemory, PC, A, B);
 
                 clock += 4;
                 break;
             }
 
-            case 0x19: {  // IFZ
-                int nextAddress = programMemory.getByte(PC.getValue());
-
-                if (A.getValue() == 0)
-                    Operations.jump(PC, nextAddress);
-                else
-                    PC.increment();
+            case 0x19:   // IFZ
+                Operations.jumpIfZero(programMemory, PC, A);
 
                 clock+=4;
                 break;
-            }
+
+            case 0x22:  // PUSH
+                try {
+                    Operations.push(A, STACK);
+                } catch (StackOverFlowException e) {
+                    running = false;
+                    System.out.println(e.getMessage());
+                }
+
+                clock+=2;
+                break;
+
+            case 0x24:  // POP
+                try {
+                    Operations.pop(A, STACK);
+                } catch (StackUnderFlowException e) {
+                    running = false;
+                    System.out.println(e.getMessage());
+                }
+                clock+=3;
+                break;
 
             case 0x1F:  // halt
                 running = false;
@@ -161,17 +165,37 @@ public class CPU {
         }
     }
 
+    @Override
+    public String toString(){
+        StringBuilder myString = new StringBuilder();
+
+        // Registers
+        myString.append(String.format("Registers:\n\tA: %02x\tB: %02x\tOUT: %02x\tPC: %02x\tMBR: %02x\n",
+                A.getValue(), B.getValue(), OUT.getValue(), PC.getValue(), MBR.getValue()));
+
+        // Program Memory
+        myString.append("Memory:\n");
+        myString.append(programMemory);
+
+        // Stack
+        myString.append("\nStack:");
+        myString.append(STACK.toString());
+
+        return myString.toString();
+    }
+
     public static void main(String[] args){
         CPU mic8 = new CPU();
 
         int[] program = {0x0B, 0xFE, 0x11, 0x0B, 0x00, 0x17, 0x0A, 0x0F, 0x1D, 0x05, 0x1F};
         for (int i = 0; i < program.length; i++)
             mic8.programMemory.setByte(i, program[i]);
+
         //System.out.println(mic8.programMemory);
         while (mic8.isRunning())
             mic8.runOnce();
 
-        System.out.println("A: " + mic8.A);
+        System.out.println(mic8);
 
     }
 }

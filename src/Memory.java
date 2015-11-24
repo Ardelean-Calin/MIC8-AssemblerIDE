@@ -1,11 +1,12 @@
 import java.util.Arrays;
+import java.util.StringJoiner;
 
 /**
  * Project: MIC8-AssemblerIDE
  * Created by calin on 11/21/15.
  */
 public class Memory {
-    int[] memory;
+    private int[] memory;
     private int size;
 
     public Memory(int addressSize){
@@ -50,15 +51,27 @@ public class Memory {
         /**
          * Writes a program or data to memory. Max 256 bytes
          */
-        for (int i = 0; i < data.length; i++)
-            memory[i] = data[i];
+        memory = data.clone();
     }
 
     @Override
     public String toString() {
-        return "Memory{" +
-                "memory=" + Arrays.toString(memory) +
-                '}';
+        StringBuilder myString = new StringBuilder();
+
+        // Draw the header for the memory table
+        for (int i = 0; i < 16; i++) {
+            myString.append(String.format("\t%02x", i));
+        }
+
+        // Draw the memory table
+        for (int i = 0; i < size; i++) {
+            if(i % 16 == 0)
+                myString.append(String.format("\n%02x: %02x", i, memory[i]));
+            else
+                myString.append(String.format("\t%02x", memory[i]));
+        }
+
+        return myString.toString();
     }
 
     private void _initializeMemory(){
