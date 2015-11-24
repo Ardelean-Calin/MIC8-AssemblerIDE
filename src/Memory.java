@@ -46,6 +46,14 @@ public class Memory {
         MBR.setValue(memory[PC.getValue()]);
     }
 
+    public void writeMemory(int[] data){
+        /**
+         * Writes a program or data to memory. Max 256 bytes
+         */
+        for (int i = 0; i < data.length; i++)
+            memory[i] = data[i];
+    }
+
     @Override
     public String toString() {
         return "Memory{" +

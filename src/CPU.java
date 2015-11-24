@@ -46,6 +46,14 @@ public class CPU {
         return running;
     }
 
+    public void stop(){
+        /**
+         * Stops the CPU by setting the running flag for which
+         * you need to check in the main program.
+         */
+        running = false;
+    }
+
     private void _executeOpCode(){
         int opCode = MBR.getValue();
 
