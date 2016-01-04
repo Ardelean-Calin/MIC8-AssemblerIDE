@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 /**
  * Project: MIC8-AssemblerIDE
  * Created by calin on 11/21/15.
@@ -185,17 +187,19 @@ public class CPU {
     }
 
     public static void main(String[] args){
-        CPU mic8 = new CPU();
+//        CPU mic8 = new CPU();
+//
+//        int[] program = {0x0B, 0xFE, 0x11, 0x0B, 0x00, 0x17, 0x0A, 0x0F, 0x1D, 0x05, 0x1F};
+//        for (int i = 0; i < program.length; i++)
+//            mic8.programMemory.setByte(i, program[i]);
+//
+//        //System.out.println(mic8.programMemory);
+//        while (mic8.isRunning())
+//            mic8.runOnce();
+//
+//        System.out.println(mic8);
+        UI x = new UI();
 
-        int[] program = {0x0B, 0xFE, 0x11, 0x0B, 0x00, 0x17, 0x0A, 0x0F, 0x1D, 0x05, 0x1F};
-        for (int i = 0; i < program.length; i++)
-            mic8.programMemory.setByte(i, program[i]);
-
-        //System.out.println(mic8.programMemory);
-        while (mic8.isRunning())
-            mic8.runOnce();
-
-        System.out.println(mic8);
 
     }
 }
