@@ -24,7 +24,7 @@ public class SyntaxHighlighter {
         keyWordsPatterns[5]     = Pattern.compile("\\b(?<!<font color=\\S{1,10}>)mov\\b", Pattern.CASE_INSENSITIVE);
         keyWordsPatterns[6]     = Pattern.compile("\\b(?<!<font color=\\S{1,10}>)sub\\b", Pattern.CASE_INSENSITIVE);
         keyWordsPatterns[7]     = Pattern.compile("\\b(?<!<font color=\\S{1,10}>)add\\b", Pattern.CASE_INSENSITIVE);
-        keyWordsPatterns[8]     = Pattern.compile("\\b(?<!<font color=\\S{1,10}>)jmp\\b", Pattern.CASE_INSENSITIVE);
+        keyWordsPatterns[8]     = Pattern.compile("\\b(?<!<font color=\\S{1,10}>)jump\\b", Pattern.CASE_INSENSITIVE);
         keyWordsPatterns[9]     = Pattern.compile("\\b(?<!<font color=\\S{1,10}>)ifeq\\b", Pattern.CASE_INSENSITIVE);
         keyWordsPatterns[10]    = Pattern.compile("\\b(?<!<font color=\\S{1,10}>)ifz\\b", Pattern.CASE_INSENSITIVE);
         keyWordsPatterns[11]    = Pattern.compile("\\b(?<!<font color=\\S{1,10}>)ifl\\b", Pattern.CASE_INSENSITIVE);
